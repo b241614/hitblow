@@ -33,16 +33,23 @@ def play(digits=3):
         #      if guess == "h":
         #          print(hint(secret)); continue
 
-        is_valid = False
-        if mode == "number" and guess.isdigit():
-            is_valid = True
-        elif mode == "alphabet" and guess.isalpha():
-            guess = guess.upper()
-            is_valid = True
+        guess = guess.upper()
 
-        if len(guess) != digits or not is_valid:
+        import string
+        if mode == "number":
+            allowed_pool = string.digits
+        else:
+            allowed_pool = string.ascii_uppercase
+
+        if len(guess) == digits and all(c in allowed_pool for c in guess):
+            is_valid = True
+        else:
+            is_valid = False
+
+        if not is_valid:
             print(f"{digits} 桁の{mode_name}で入力してね")
             continue
+           
         tries += 1
         hit, blow = judge(secret, guess)
         print(f"  Hit={hit}  Blow={blow}")
