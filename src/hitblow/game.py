@@ -22,6 +22,7 @@ def play(digits=3):
 
     mode_name = "数字" if mode == "number" else "アルファベット" 
 
+    secret = make_secret(digits, mode=mode)
     lives = init_lives(digits)
 
     print(f"Hit & Blow（{digits} 桁・重複なし）")
@@ -42,8 +43,8 @@ def play(digits=3):
             guess = guess.upper()
             is_valid = True
 
-        if len(guess) != digits or not guess.isdigit():
-            print(f"{digits} 桁の数字で入力してね")
+        if len(guess) != digits or not is_valid:
+            print(f"{digits} 桁の{mode_name}で入力してね")
             continue
         tries += 1
         hit, blow = judge(secret, guess)

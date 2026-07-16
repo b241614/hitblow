@@ -4,7 +4,7 @@
 """
 
 import random
-
+import string
 
 def judge(secret, guess):
     """secret と guess（同じ桁数の文字列）を比べて (hit, blow) を返す。
@@ -17,6 +17,10 @@ def judge(secret, guess):
     return hits, common - hits
 
 
-def make_secret(digits=3):
-    """重複なしの digits 桁の答えを作る。"""
-    return "".join(random.sample("0123456789", digits))
+def make_secret(digits=3, mode="number"):
+    if mode == "number":
+        pool = "0123456789"
+    else:
+        pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
+    return "".join(random.sample(pool, digits))
