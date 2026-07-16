@@ -17,8 +17,13 @@ def play(digits=3):
     mode = select_mode()
     digits = select_digits()
     secret = make_secret(digits)
-    print(f"{mode} ")
+
     mode_name = "数字" if mode == "number" else "アルファベット" 
+   
+    lives = init_lives(digits)
+
+    secret = make_secret(digits, mode=mode)
+    
     print(f"{mode_name} ")
     print(f"Hit & Blow（{digits} 桁・重複なし）")
     tries = 0
