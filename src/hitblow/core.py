@@ -17,10 +17,10 @@ def judge(secret, guess):
     return hits, common - hits
 
 
-def make_secret(digits, mode="number"):
+def make_secret(digits=3, mode="number"):
     if mode == "number":
-        pool = string.digits
+        pool = "0123456789"
     else:
-        pool = string.ascii_uppercase
+        pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     
     return "".join(random.sample(pool, digits))
