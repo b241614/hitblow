@@ -42,8 +42,8 @@ def play(digits=3):
             guess = guess.upper()
             is_valid = True
 
-        if len(guess) != digits:
-            print(f"{digits} 桁で入力してね")
+        if len(guess) != digits or not is_valid:
+            print(f"{digits} 桁の{mode_name}で入力してね")
             continue
         tries += 1
         hit, blow = judge(secret, guess)
