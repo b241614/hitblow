@@ -15,6 +15,7 @@ def play(digits=3):
     from .mode import select_mode
     from .life import init_lives, update_lives, display_lives
 
+
     mode = select_mode()
     digits = select_digits()
     secret = make_secret(digits)
