@@ -12,4 +12,4 @@ def update_lives(lives, hit, blow):
 
 def display_lives(lives):
     """ライフをハートで表示する"""
-    return "❤️" * lives
+    return "❤️ " * lives
