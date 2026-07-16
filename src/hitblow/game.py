@@ -11,24 +11,34 @@ from .core import judge, make_secret
 
 def play(digits=3):
     from .difficulty import select_digits
-    from .life import init_lives, update_lives, display_lives
     # ===== ① 開始時に足す（難易度・あいさつ など）: ここに書く =====
+    from .mode import select_mode
+    from .life import init_lives, update_lives, display_lives
+
+    mode = select_mode()
     digits = select_digits()
     secret = make_secret(digits)
+
+    mode_name = "数字" if mode == "number" else "アルファベット" 
 
     lives = init_lives(digits)
 
     print(f"Hit & Blow（{digits} 桁・重複なし）")
-    print(f"ライフ：{display_lives(lives)}")
     tries = 0
     while True:
-        print(f"\nライフ：{display_lives(lives)}")
         guess = input("予想 > ").strip()
 
         # ===== ② 入力コマンドに足す（ヒント など）: ここに書く（import もここに） =====
         # 例:  from .hint import hint
         #      if guess == "h":
         #          print(hint(secret)); continue
+
+        is_valid = False
+        if mode == "number" and guess.isdigit():
+            is_valid = True
+        elif mode == "alphabet" and guess.isalpha():
+            guess = guess.upper()
+            is_valid = True
 
         if len(guess) != digits or not guess.isdigit():
             print(f"{digits} 桁の数字で入力してね")
