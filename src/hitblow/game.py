@@ -13,12 +13,16 @@ def play(digits=3):
     from .difficulty import select_digits
     # ===== ① 開始時に足す（難易度・あいさつ など）: ここに書く =====
     from .mode import select_mode
+    from .life import init_lives, update_lives, display_lives
+
 
     mode = select_mode()
     digits = select_digits()
     secret = make_secret(digits)
 
     mode_name = "数字" if mode == "number" else "アルファベット" 
+
+    lives = init_lives(digits)
 
     print(f"Hit & Blow（{digits} 桁・重複なし）")
     tries = 0
@@ -43,6 +47,16 @@ def play(digits=3):
         tries += 1
         hit, blow = judge(secret, guess)
         print(f"  Hit={hit}  Blow={blow}")
+
+        old_lives = lives
+        lives = update_lives(lives, hit, blow)
+
+        if lives < old_lives:
+           print("💔 HitもBlowも0だったためライフが1減りました！")
+
+        if lives == 0:
+           print(f"\nゲームオーバー！ 答えは {secret} でした。")
+           break
         if hit == digits:
 
             # ===== ③ 勝利時に足す（スコア・履歴 など）: ここに書く =====
