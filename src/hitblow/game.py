@@ -11,13 +11,18 @@ from .core import judge, make_secret
 
 def play(digits=3):
     from .difficulty import select_digits
+    from .life import init_lives, update_lives, display_lives
     # ===== ① 開始時に足す（難易度・あいさつ など）: ここに書く =====
     digits = select_digits()
     secret = make_secret(digits)
 
+    lives = init_lives(digits)
+
     print(f"Hit & Blow（{digits} 桁・重複なし）")
+    print(f"ライフ：{display_lives(lives)}")
     tries = 0
     while True:
+        print(f"\nライフ：{display_lives(lives)}")
         guess = input("予想 > ").strip()
 
         # ===== ② 入力コマンドに足す（ヒント など）: ここに書く（import もここに） =====
@@ -31,6 +36,16 @@ def play(digits=3):
         tries += 1
         hit, blow = judge(secret, guess)
         print(f"  Hit={hit}  Blow={blow}")
+
+        old_lives = lives
+        lives = update_lives(lives, hit, blow)
+
+        if lives < old_lives:
+           print("💔 HitもBlowも0だったためライフが1減りました！")
+
+        if lives == 0:
+           print(f"\nゲームオーバー！ 答えは {secret} でした。")
+           break
         if hit == digits:
 
             # ===== ③ 勝利時に足す（スコア・履歴 など）: ここに書く =====
