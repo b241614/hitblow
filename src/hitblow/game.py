@@ -22,7 +22,10 @@ def play(digits=3):
    
     lives = init_lives(digits)
 
-    secret = make_secret(digits, mode=mode)
+    if mode == "alphabet":
+       import random
+       pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+       secret = "".join(random.sample(pool, digits))
     
     print(f"{mode_name} ")
     print(f"Hit & Blow（{digits} 桁・重複なし）")
