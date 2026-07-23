@@ -62,6 +62,7 @@ def play(digits=3):
         if hit == digits:
 
             # ===== ③ 勝利時に足す（スコア・履歴 など）: ここに書く =====
+            from .score import display_score
+            display_score(digits, lives, secret, tries)
 
-            print(f"正解！ {tries} 回で当たり（答え {secret}）")
             break
